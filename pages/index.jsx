@@ -1,8 +1,4 @@
-import { React } from 'react';
+import { React } from "react";
 export default function Home() {
-  return (
-    <div>
-      Hello GraphQL Clients!
-    </div>
-  );
+  return <div>Hello GraphQL Clients!</div>;
 }

@@ -1,24 +1,11 @@
 import { React, useState } from 'react';
 import { UserDetail } from '../components/UserDetail';
-import { gql, useQuery, useLazyQuery } from '@apollo/client';
-
-const query = gql`
-  query getNextUserByEmail($email:String!){
-    nextUser(where:{email:$email}){
-      firstname
-      lastname
-      email
-      posts{
-        title
-      }
-    }
-  }`;
-
+import { gql, useLazyQuery } from '@apollo/client';
+import { GRAPHQL_QUERY } from '../lib/constants';
 
 export default function ApolloClient() {
-
+  const query = gql(GRAPHQL_QUERY);
   const [email, setEmail] = useState('');
-  // const { loading, error, data } = useQuery(query, { variables: { email:'johndoe@graphcms.com' } });
   const [getUserDetailByApolloClientAPICall, { loading, error, data }] = useLazyQuery(query, { variables: { email } });
 
   if (error) return <div> Error ! </div>;
@@ -51,7 +38,6 @@ export default function ApolloClient() {
       </div>
       {
         data?.nextUser ? <UserDetail user={data.nextUser} /> : null
-
       }
     </div>
   );

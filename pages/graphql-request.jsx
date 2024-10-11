@@ -1,23 +1,13 @@
 import { React, useState } from 'react';
-import { GRAPHCMS_URL, GRAPHCMS_PERMANENTAUTH_TOKEN } from '../lib/constants';
+import { HYGRAPH_URL, HYGRAPH_PERMANENTAUTH_TOKEN, GRAPHQL_QUERY } from '../lib/constants';
 import { GraphQLClient, gql } from 'graphql-request';
 import { UserDetail } from '../components/UserDetail';
-const client = new GraphQLClient(GRAPHCMS_URL, {
+const client = new GraphQLClient(HYGRAPH_URL, {
   headers: {
-    Authorization: `Bearer ${GRAPHCMS_PERMANENTAUTH_TOKEN}`,
+    Authorization: `Bearer ${HYGRAPH_PERMANENTAUTH_TOKEN}`,
   },
 });
-const query = gql`
-  query getNextUserByEmail($email:String!){
-    nextUser(where:{email:$email}){
-      firstname
-      lastname
-      email
-      posts{
-        title
-      }
-    }
-  }`;
+const query = gql`${GRAPHQL_QUERY}`;
 
 export default function GraphQLRequest() {
   const [email, setEmail] = useState('');

@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { GRAPHCMS_URL, GRAPHCMS_PERMANENTAUTH_TOKEN } from '../lib/constants';
+import { HYGRAPH_URL, HYGRAPH_PERMANENTAUTH_TOKEN, GRAPHQL_QUERY } from '../lib/constants';
 import { UserDetail } from '../components/UserDetail';
 import axios from 'axios';
 
@@ -16,24 +16,15 @@ export default function Fetch() {
       setIsLoading(true);
       const headers = {
         'content-type': 'application/json',
-        'Authorization': `Bearer ${GRAPHCMS_PERMANENTAUTH_TOKEN}`
+        'Authorization': `Bearer ${HYGRAPH_PERMANENTAUTH_TOKEN}`
       };
       const requestBody = {
-        query: `query getNextUserByEmail($email:String!){
-                    nextUser(where:{email:$email}){
-                      firstname
-                      lastname
-                      email
-                      posts{
-                        title
-                      }
-                    }
-                  }`,
+        query: GRAPHQL_QUERY,
         variables: { email }
       };
       const options = {
         method: 'POST',
-        url: GRAPHCMS_URL,
+        url: HYGRAPH_URL,
         headers,
         data: requestBody
       };
